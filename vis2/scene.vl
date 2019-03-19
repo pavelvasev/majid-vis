@@ -49,7 +49,7 @@ Scene {
   }
   
   Param {
-    text: "spheres r"
+    text: spheres.hasr ? "spheres r (not used)" : "spheres r"
     id: sScale
     min: 0.05
     max: 10.0
@@ -89,7 +89,7 @@ Scene {
   }
   
   Spheres {
-    id: lines
+    id: spheres
     radius: sScale.value
 
     property var positions2: {
@@ -111,13 +111,15 @@ Scene {
       return merged;
     }
     
-    /*
+    property bool hasr: (((json.output.spheres || [])[0] || [])[6] > 0)
     radiuses: {
-      var arrays = (json.output.spheres || []).map( function(v) { return [ v[3] ]; } )
+      if (!hasr) return [];
+      //var dr = sScale.value;
+      var arrays = (json.output.spheres || []).map( function(v) { return [ v[6] ]; } )
       var merged = [].concat.apply([], arrays);
       console.log("setting spheres radiues",merged);
       return merged;
-    }*/
+    }
     
     VisibleParam {
       text: "Spheres"
