@@ -44,6 +44,15 @@ Scene {
     max: 10.0
     step: 0.05
     value: 0.05
+  }
+  
+  Param {
+    text: "spheres r"
+    id: sScale
+    min: 0.05
+    max: 10.0
+    step: 0.05
+    value: 0.3
   }  
 
   Cylinders {
@@ -72,12 +81,15 @@ Scene {
     VisibleParam {
       text: "Lines"
     }
+    OpacityParam {
+      text: "Lines opacity"
+    }    
 
   }
   
   Spheres {
     id: lines
-    //radius: 0.25 // * allScale.value
+    radius: sScale.value
 
     property var positions2: {
       var zz = zScale.value;
@@ -92,21 +104,25 @@ Scene {
 
     colors: {
       //var arrays = (json.output.lines || []).map( function(v) { return [ v[6],v[7],v[8], v[6],v[7],v[8] ]; } )
-      var arrays = (json.output.spheres || []).map( function(v) { return [ v[4],v[5],v[6] ]; } )
+      var arrays = (json.output.spheres || []).map( function(v) { return [ v[3],v[4],v[5] ]; } )
       var merged = [].concat.apply([], arrays);
       //console.log("setting colors",merged);
       return merged;
     }
     
+    /*
     radiuses: {
       var arrays = (json.output.spheres || []).map( function(v) { return [ v[3] ]; } )
       var merged = [].concat.apply([], arrays);
       console.log("setting spheres radiues",merged);
       return merged;
-    }
+    }*/
     
     VisibleParam {
       text: "Spheres"
+    }
+    OpacityParam {
+      text: "Spheres opacity"
     }
   }
   
