@@ -8,7 +8,7 @@ Show files of format:
    ..repeated.. 
  ],
 "spheres": [
-   [x1,y1,z1,r,c1,c2,c3],
+   [x1,y1,z1,c1,c2,c3],
     ..repeated.. 
  ],
 "text": [
