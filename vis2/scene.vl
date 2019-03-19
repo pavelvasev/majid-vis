@@ -1,0 +1,107 @@
+Scene {
+
+  Text {
+    text: "Provide json:"
+    property var tag: "left"
+  }
+
+  ///////// Data
+  DataParam {
+    guid: "jsonfile"
+    file: Qt.resolvedUrl( "TreeFFinal.json")
+    JsonLoader {
+      id: json
+      file: parent.file
+    }
+  }
+
+  ///////// Vis
+
+  axes.visible: true
+
+  Param {
+    text: "z scale"
+    id: zScale
+    min: 0.3
+    max: 10.1
+    step: 0.1
+    value: 1
+  }
+
+  Param {
+    text: "all scale"
+    id: allScale
+    min: 0.1
+    max: 10.1
+    step: 0.1
+    value: 1
+  }
+
+  Cylinders {
+    id: lines
+    radius: 0.025 // * allScale.value
+
+    property var positions2: {
+      var zz = zScale.value;
+      var arrays = (json.output.lines || []).map( function(v) { return [ v[0],v[1],v[2]*zz, v[3],v[4],v[5]*zz ]; } )
+      var merged = [].concat.apply([], arrays);
+      return merged;
+    }
+    positions: {
+      var s = allScale.value;
+      return positions2.map( function(e) { return s * e } );
+    }
+    
+    colors: {
+      //var arrays = (json.output.lines || []).map( function(v) { return [ v[6],v[7],v[8], v[6],v[7],v[8] ]; } )
+      var arrays = (json.output.lines || []).map( function(v) { return [ v[6],v[7],v[8] ]; } )
+      var merged = [].concat.apply([], arrays);
+      console.log("setting colors",merged);
+      return merged;
+    }    
+  }
+  
+  Spheres {
+    id: lines
+    radius: 0.25 // * allScale.value
+
+    property var positions2: {
+      var zz = zScale.value;
+      var arrays = (json.output.lines || []).map( function(v) { return [ v[0],v[1],v[2]*zz ]; } )
+      var merged = [].concat.apply([], arrays);
+      return merged;
+    }
+    positions: {
+      var s = allScale.value;
+      return positions2.map( function(e) { return s * e } );
+    }
+....
+    colors: {
+      //var arrays = (json.output.lines || []).map( function(v) { return [ v[6],v[7],v[8], v[6],v[7],v[8] ]; } )
+      var arrays = (json.output.lines || []).map( function(v) { return [ v[5],v[6],v[7] ]; } )
+      var merged = [].concat.apply([], arrays);
+      //console.log("setting colors",merged);
+      return merged;
+    }
+    
+    radiuses: {
+      var arrays = (json.output.lines || []).map( function(v) { return [ v[4] ]; } )
+      var merged = [].concat.apply([], arrays);
+      return merged;
+    }
+  }..
+  
+
+  Repeater {
+    model: (json.output.text || []).length
+    TextSprite {
+      text: json.output.text[ index ][3]
+      center: [ json.output.text[ index ][0]*allScale.value, json.output.text[ index ][1]*allScale.value, json.output.text[ index ][2]*zScale.value*allScale.value ]
+      centered: false
+      texOffset: [-0.5,0.45]
+      texSize: [512,256]
+      bold: true
+    }
+  }
+
+}
