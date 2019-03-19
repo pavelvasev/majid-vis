@@ -1,14 +1,14 @@
 Scene {
 
   Text {
-    text: "Provide json:"
+    text: "Provide json data:"
     property var tag: "left"
   }
 
   ///////// Data
   DataParam {
     guid: "jsonfile"
-    file: Qt.resolvedUrl( "TreeFFinal.json")
+    file: Qt.resolvedUrl( "a.json")
     JsonLoader {
       id: json
       file: parent.file
@@ -58,16 +58,21 @@ Scene {
       var merged = [].concat.apply([], arrays);
       console.log("setting colors",merged);
       return merged;
-    }    
+    }
+    
+    VisibleParam {
+      text: "Lines"
+    }
+
   }
   
   Spheres {
     id: lines
-    radius: 0.25 // * allScale.value
+    //radius: 0.25 // * allScale.value
 
     property var positions2: {
       var zz = zScale.value;
-      var arrays = (json.output.lines || []).map( function(v) { return [ v[0],v[1],v[2]*zz ]; } )
+      var arrays = (json.output.spheres || []).map( function(v) { return [ v[0],v[1],v[2]*zz ]; } )
       var merged = [].concat.apply([], arrays);
       return merged;
     }
@@ -78,22 +83,27 @@ Scene {
 
     colors: {
       //var arrays = (json.output.lines || []).map( function(v) { return [ v[6],v[7],v[8], v[6],v[7],v[8] ]; } )
-      var arrays = (json.output.lines || []).map( function(v) { return [ v[5],v[6],v[7] ]; } )
+      var arrays = (json.output.spheres || []).map( function(v) { return [ v[4],v[5],v[6] ]; } )
       var merged = [].concat.apply([], arrays);
       //console.log("setting colors",merged);
       return merged;
     }
     
     radiuses: {
-      var arrays = (json.output.lines || []).map( function(v) { return [ v[4] ]; } )
+      var arrays = (json.output.spheres || []).map( function(v) { return [ v[3] ]; } )
       var merged = [].concat.apply([], arrays);
+      console.log("setting spheres radiues",merged);
       return merged;
+    }
+    
+    VisibleParam {
+      text: "Spheres"
     }
   }
   
 
   Repeater {
-    model: (json.output.text || []).length
+    model: cbVisText.checked ? (json.output.text || []).length : 0
     TextSprite {
       text: json.output.text[ index ][3]
       center: [ json.output.text[ index ][0]*allScale.value, json.output.text[ index ][1]*allScale.value, json.output.text[ index ][2]*zScale.value*allScale.value ]
@@ -102,6 +112,12 @@ Scene {
       texSize: [512,256]
       bold: true
     }
+  }
+  
+  CheckBoxParam {
+    text: "Text"
+    checked: true
+    id: cbVisText
   }
 
 }
