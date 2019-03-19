@@ -1,0 +1,66 @@
+
+.seq_val_A {
+  background-color: red;
+}
+.seq_val_C {
+  background-color: lightgreen;
+}
+.seq_val_G {
+  background-color: yellow;
+}
+.seq_val_T {
+  background-color: cyan;
+}
+.seq_val_U {
+  background-color: cyan;
+}
+
+.seq_val {
+  padding: 2px;
+/*  
+  border: 1px solid grey;
+  border-bottom: 0px;
+  border-right: 0px;
+*/  
+  margin: 0px;
+}
+
+.seq_table {
+  border-spacing: 0px;
+  border: 1px solid grey;
+  border-bottom: 0px;
+}
+
+/* https://www.w3schools.com/css/css_table.asp */
+
+/*.seq_table td2 {
+  border: 1px solid grey;
+  border-bottom: 0px;
+  border-right: 0px;
+}*/
+
+.seq_table th, .seq_table td {
+  border-bottom: 1px solid grey;
+}
+
+.seq_table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/*
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+*/
+
+.seq_msg_err {
+  background-color: red;
+  color: white;
+  border: 1px solid black;
+}
+
+.seq_msg_info {
+  background-color: cyan;
+  border: 1px solid grey;
+}

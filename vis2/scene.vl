@@ -16,6 +16,8 @@ Scene {
   }
 
   ///////// Vis
+  
+  // fine params: lines r 0.3, spheres r 2.3, spheres opacity 9
 
   axes.visible: true
 
@@ -83,8 +85,7 @@ Scene {
     }
     OpacityParam {
       text: "Lines opacity"
-    }    
-
+    }
   }
   
   Spheres {
