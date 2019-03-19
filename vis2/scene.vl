@@ -75,7 +75,7 @@ Scene {
       var s = allScale.value;
       return positions2.map( function(e) { return s * e } );
     }
-....
+
     colors: {
       //var arrays = (json.output.lines || []).map( function(v) { return [ v[6],v[7],v[8], v[6],v[7],v[8] ]; } )
       var arrays = (json.output.lines || []).map( function(v) { return [ v[5],v[6],v[7] ]; } )
@@ -89,7 +89,7 @@ Scene {
       var merged = [].concat.apply([], arrays);
       return merged;
     }
-  }..
+  }
   
 
   Repeater {
