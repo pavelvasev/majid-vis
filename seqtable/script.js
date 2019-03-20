@@ -13,7 +13,9 @@ function seqtableMakeData(element,data){
   var s = "";
   s += "<table class='seq_table'>";
   
-  s += "<thead><tr><th>№</th><th>Score</th><th>ID</th><th colspan=1000>Sequence</th></tr></thead>"
+  s += "<thead><tr><th>№</th><th>Score</th><th>ID</th><th colspan=1000>Sequence</th></tr></thead>";
+  
+  s += makeIndicesLine( data );
 
   //var data = jjj;
   for (var i=0; i<data.length; i++) {
@@ -38,6 +40,19 @@ function seqtableMakeData(element,data){
   showIndices( element,data );
   
   return;
+}
+
+function makeIndicesLine( data )
+{
+  var maxlen = 0;
+  for (var i=0; i<data.length; i++) {
+    var line=data[i];
+    var seq=line[2];
+    if (seq.length > maxlen) maxlen = seq.length;
+  }
+  var s = "<tr class='seq_indices'><td colspan=3></td>";
+  for (var k=0; k<maxlen; k++) s += "<td>"+(k+1)+"</td>";
+  return s;
 }
 
 // adds colors to the cells with score value

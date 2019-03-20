@@ -15,13 +15,15 @@
   background-color: #11abf5; /*cyan;*/
 }
 
+
 /* ********************* table borders and styling *************************** */
 
 .seq_val {
   padding: 2px;
+/*  padding-bottom: 0px;padding-top: 0px;*/
   margin: 0px;
   font-family: "Courier New", Courier, monospace;
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 200;
 }
 
@@ -42,24 +44,32 @@
   background-color: #d2d2d2;
 }
 
+/* *********************** indices at upside ***************************** */
+.seq_table .seq_indices td {
+  border-right: 1px solid grey;
+  font-size: 10px;
+  text-align: center;
+}
+
 /* *********************** indices for dna records ***************************** */
 
-.seq_val_hilite {
-  border-bottom: 1px solid white !important;
-/*  font-weight: 600;*/
-}
-
-.seq_val_hilite_focus {
-  border-bottom: 1px solid !important;
-}
-
 .seq_table tr:hover td {
-/*  background-color: rgb(180,180,180); */
   border-bottom: 1px solid black; 
 }
 .seq_table tr:hover {
   background-color: rgb(96,125,139);
 }
+
+/* not used
+.seq_val_hilite {
+  border-bottom: 1px solid white !important;
+}
+
+.seq_val_hilite_focus {
+  border-bottom: 1px solid !important;
+}*/
+
+
 
 /* *********************** other ***************************** */
 .seq_msg_err {
