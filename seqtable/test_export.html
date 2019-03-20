@@ -20,14 +20,28 @@ Hello! Alignment complete:
 <style>
 seqtable table caption {
   text-align: left;
-  padding: 5px;
 }  
+seqtable table caption * {
+  margin: 3px;
+}
 </style>
 <script>
 function addtableexports() {
 //  TableExport( document.getElementsByTagName("table"), { position: "top" } );
-  TableExport( document.getElementsByTagName("table") );
+  var t = document.getElementsByTagName("seqtable")[0].getElementsByTagName("table") [0];
+  TableExport( t, { formats: ["xlsx", "csv"] } );
+  
+  var aa = document.createElement('a');
+  aa.href = "/some/extra/file.fasta";
+  aa.target = "_blank";
+  aa.innerText = "Export .fasta";
+  t.getElementsByTagName("caption")[0].appendChild( aa );
+  
 }
 </script>
+
+<!--
+<a href="/some/extra/file.fasta" target="_blank">Fasta file</a>
+-->
 
 </body>
