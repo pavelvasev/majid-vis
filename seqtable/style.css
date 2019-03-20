@@ -51,6 +51,10 @@
   text-align: center;
 }
 
+.seq_table .seq_indices td:nth-child(even) {
+  background-color: #d2d2d2;
+}
+
 /* *********************** indices for dna records ***************************** */
 
 .seq_table tr:hover td {
