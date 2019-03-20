@@ -149,5 +149,9 @@ Scene {
     checked: true
     id: cbVisText
   }
+  
+  BackgroundColor {
+   ColorParam{}
+  }
 
 }
