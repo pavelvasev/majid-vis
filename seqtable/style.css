@@ -1,28 +1,28 @@
-
+/* ************************ colors for dna records ********************** */
 .seq_val_A {
-  background-color: red;
+  background-color: #ff2424; /*red;*/
 }
 .seq_val_C {
   background-color: lightgreen;
 }
 .seq_val_G {
-  background-color: yellow;
+  background-color: #dcdc00; /*yellow;*/
 }
 .seq_val_T {
-  background-color: cyan;
+  background-color: #11abf5; /*cyan;*/
 }
 .seq_val_U {
-  background-color: cyan;
+  background-color: #11abf5; /*cyan;*/
 }
+
+/* ********************* table borders and styling *************************** */
 
 .seq_val {
   padding: 2px;
-/*  
-  border: 1px solid grey;
-  border-bottom: 0px;
-  border-right: 0px;
-*/  
   margin: 0px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  font-weight: 200;
 }
 
 .seq_table {
@@ -33,27 +33,35 @@
 
 /* https://www.w3schools.com/css/css_table.asp */
 
-/*.seq_table td2 {
-  border: 1px solid grey;
-  border-bottom: 0px;
-  border-right: 0px;
-}*/
-
 .seq_table th, .seq_table td {
   border-bottom: 1px solid grey;
 }
 
+
 .seq_table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #d2d2d2;
 }
 
-/*
-th {
-  background-color: #4CAF50;
-  color: white;
-}
-*/
+/* *********************** indices for dna records ***************************** */
 
+.seq_val_hilite {
+  border-bottom: 1px solid white !important;
+/*  font-weight: 600;*/
+}
+
+.seq_val_hilite_focus {
+  border-bottom: 1px solid !important;
+}
+
+.seq_table tr:hover td {
+/*  background-color: rgb(180,180,180); */
+  border-bottom: 1px solid black; 
+}
+.seq_table tr:hover {
+  background-color: rgb(96,125,139);
+}
+
+/* *********************** other ***************************** */
 .seq_msg_err {
   background-color: red;
   color: white;

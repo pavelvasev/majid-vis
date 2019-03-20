@@ -24,7 +24,7 @@ function seqtableMakeData(element,data){
     s += "<td class='seq_id'>"+line[1]+"</td>"
     var seq = line[2];
     for (var j=0; j<seq.length; j++) {
-      s += "<td class='seq_val seq_val_" + seq[j] + "'>"+seq[j]+"</td>";
+      s += "<td seqindex="+i+" seqj="+(j+1)+" class='seq_val seq_val_" + seq[j] + "'>"+seq[j]+"</td>";
     }
     s += "</tr>";
   }
@@ -35,6 +35,7 @@ function seqtableMakeData(element,data){
   
   // should call coloring here - after constructing dom
   colorizeScores( element, data );
+  showIndices( element,data );
   
   return;
 }
@@ -57,8 +58,8 @@ function colorizeScores(element, data)
   function scorecolor(v) {
     var v = (v-minscore)/diffscore;
     
-    var r = 255 * v;
-    var b = 255 * (1-v);
+    var r = Math.trunc( 255.0 * v );
+    var b = Math.trunc( 255.0 * (1-v) );
     return "rgb( "+r+",0,"+b+")";
   }
   
@@ -66,10 +67,47 @@ function colorizeScores(element, data)
   if (cells.length != data.length) return;
   
   for (var i=1; i<data.length; i++) {
-    if (data[i][0] >= 0)
-        cells[i].style.backgroundColor = scorecolor( data[i][0] );
+    var s = data[i][0];
+//    console.log( s )
+//    console.log( scorecolor(s));
+    if (s >= 0) {
+        cells[i].style.backgroundColor = scorecolor( s );
+    }
   }
 }
+
+
+// makes indices visible when hover mouse
+function showIndices(element, data)
+{
+  var cells = element.getElementsByClassName( "seq_val" );
+  
+  for (var i=0; i<cells.length; i++) {
+    var e = cells[i];
+
+    var index= e.attributes.seqindex.value;
+    var j= e.attributes.seqj.value;
+    
+    e.title = "position: " + j +"\n"+data[index][1];
+    
+    /*
+    e.addEventListener( "mouseover", function(event) {
+      console.log("over ",index,j );
+      var index = event.target.attributes.seqindex.value;
+      var j = event.target.attributes.seqj.value;
+      for (var k=0; k<cells.length; k++) {
+        var e2 = cells[k];
+        if (e2.attributes.seqindex.value == index || e2.attributes.seqj.value == j)
+          e2.classList.add( "seq_val_hilite" )
+        else
+          e2.classList.remove( "seq_val_hilite" );
+      } 
+    });
+    */
+  }
+}
+
+
 
 function seqmsg( element, msg )
 {
@@ -101,14 +139,14 @@ function seqtableMake(element){
          j = JSON.parse( this.responseText );
        } catch(e) {
          console.log(e);
-         seqerr( element, "failed to parse json file. "+e.message );
+         seqerr( element, "failed to parse json file! "+e.message );
          return;
        }
        try {
          seqtableMakeData( element, j );
        } catch(e) {
          console.error(e);
-         seqerr( element,"failed to generate table from parsed data"+e.message );
+         seqerr( element,"failed to generate table from parsed data! "+e.message );
          return;
        }
     }
