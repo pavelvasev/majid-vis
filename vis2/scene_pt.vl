@@ -3,6 +3,11 @@ import components.creative_points 1.0
 Scene {
 
   Text {
+    property var tag: "top"
+    text: "<a href='https://yadi.sk/d/I_z-8x_ZH8Eguw' target=_bank>Sample data</a>"
+  }
+
+  Text {
     text: "Provide json data:"
     property var tag: "left"
   }
