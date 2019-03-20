@@ -164,6 +164,10 @@ function seqtableMake(element){
          seqerr( element,"failed to generate table from parsed data! "+e.message );
          return;
        }
+       
+       var afterload = element.attributes.afterload;
+       if (afterload) afterload=afterload.value;
+       if (afterload) eval(afterload);
     }
     
     function transferFailed(evt) {
