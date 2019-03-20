@@ -1,27 +1,20 @@
+/* example data
 var jjj = [
  [0,"Majid","ATGACATGACAGTCACCACACTGAGAGAGAGA"],
  [10,"Name 2","ATGACATGACAGTCACCACACTGAGAGAGAGA"],
  [9,"Name 3","ATGACATGACAGTCACCACACTGAGAGAGAGA"]
 ];
+*/
 
-// https://code.tutsplus.com/tutorials/extending-the-html-by-creating-custom-tags--cms-28622
-
-function customTag(tagName,fn){
-  //document.createElement(tagName);
-  //find all the tags occurrences (instances) in the document
-  var tagInstances = document.getElementsByTagName(tagName);
-        //for each occurrence run the associated function
-        for ( var i = 0; i < tagInstances.length; i++) {
-            fn(tagInstances[i]);
-        }
-}
- 
+// makes table according to specs
+// input: element - root element whose inner html will be replaced with table
+//        data - loaded data in json format
 function seqtableMakeData(element,data){
   var s = "";
   s += "<table class='seq_table'>";
   
   s += "<thead><tr><th>№</th><th>Score</th><th>ID</th><th colspan=1000>Sequence</th></tr></thead>"
-  
+
   //var data = jjj;
   for (var i=0; i<data.length; i++) {
     var line = data[i];
@@ -39,17 +32,43 @@ function seqtableMakeData(element,data){
   s += "</table>";
   
   element.innerHTML = s;
-  return s;
+  
+  // should call coloring here - after constructing dom
+  colorizeScores( element, data );
+  
+  return;
+}
 
-/*
-        //code for rendering the element goes here
-        if (element.attributes.email){
-            //get the email address from the element's email attribute
-            var email = element.attributes.email.value;
-            var gravatar = "http://www.gravatar.com/avatar/"+md5(email)+".png";
-            element.innerHTML = "<img src='"+gravatar+"'>";
-        }
-*/
+// adds colors to the cells with score value
+// palette: max = red, min = blue
+// input: element - root element to find score cells (lookup with class "seq_score")
+//        data - data values for sequences
+function colorizeScores(element, data)
+{
+  // calc score range
+  var scores = [];
+  for (var i=1; i<data.length; i++) scores.push( data[i][0] );
+  var minscore = Math.min.apply(null,scores);
+  var maxscore = Math.max.apply(null,scores);
+  var diffscore = maxscore-minscore;
+  
+  if (diffscore <= 0.0001) return;
+  
+  function scorecolor(v) {
+    var v = (v-minscore)/diffscore;
+    
+    var r = 255 * v;
+    var b = 255 * (1-v);
+    return "rgb( "+r+",0,"+b+")";
+  }
+  
+  var cells = element.getElementsByClassName( "seq_score" );
+  if (cells.length != data.length) return;
+  
+  for (var i=1; i<data.length; i++) {
+    if (data[i][0] >= 0)
+        cells[i].style.backgroundColor = scorecolor( data[i][0] );
+  }
 }
 
 function seqmsg( element, msg )
@@ -65,6 +84,8 @@ function seqerr( element, msg )
   element.innerHTML = "<span class='seq_msg seq_msg_err'>Sequence table ERROR. "+msg+"</span>";
 }
 
+// performs "seqtable" tag parsing and loads data
+// input: element - the seqtable tag
 function seqtableMake(element){
   var src = element.attributes.src.value;
   
@@ -111,7 +132,20 @@ function seqtableMake(element){
   }
 }
 
+// https://code.tutsplus.com/tutorials/extending-the-html-by-creating-custom-tags--cms-28622
 
+//find all the tags occurrences (instances) in the document
+function customTag(tagName,fn){
+  
+  var tagInstances = document.getElementsByTagName(tagName);
+        //for each occurrence run the associated function
+        for ( var i = 0; i < tagInstances.length; i++) {
+            fn(tagInstances[i]);
+        }
+}
+
+
+// scans html page for "seqtable" tags and calls `seqtableMake` method on them
 document.addEventListener("DOMContentLoaded", function(){
     customTag("seqtable",seqtableMake);
 });
