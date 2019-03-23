@@ -1,7 +1,7 @@
 /* example data
 var jjj = [
  [0,"Majid","ATGACATGACAGTCACCACACTGAGAGAGAGA"],
- [10,"Name 2","ATGACATGACAGTCACCACACTGAGAGAGAGA"],
+ [10,"Name 2","ATGACATGACAGTCACCACACTGAGAGTGAGA"],
  [9,"Name 3","ATGACATGACAGTCACCACACTGAGAGAGAGA"]
 ];
 */
@@ -37,11 +37,13 @@ function seqtableMakeData(element,data){
   
   // should call coloring here - after constructing dom
   colorizeScores( element, data );
-  showIndices( element,data );
-  
+  colorizeIndices( element, data );
+  interactiveSeqValues( element,data );
+
   return;
 }
 
+// generates table row with indices (e.g. positions in sequence shown on top of table)
 function makeIndicesLine( data )
 {
   var maxlen = 0;
@@ -51,7 +53,7 @@ function makeIndicesLine( data )
     if (seq.length > maxlen) maxlen = seq.length;
   }
   var s = "<tr class='seq_indices'><td colspan=3></td>";
-  for (var k=0; k<maxlen; k++) s += "<td>"+(k+1)+"</td>";
+  for (var k=0; k<maxlen; k++) s += "<td class='seq_index'>"+(k+1)+"</td>";
   return s;
 }
 
@@ -78,7 +80,7 @@ function colorizeScores(element, data)
     return "rgb( "+r+",0,"+b+")";
   }
   
-  var cells = element.getElementsByClassName( "seq_score" );
+  var cells = element.getElementsByClassName( "seq_score" ); // considers that elements returned corresponds to data 1:1
   if (cells.length != data.length) return;
   
   for (var i=1; i<data.length; i++) {
@@ -91,9 +93,31 @@ function colorizeScores(element, data)
   }
 }
 
+function colorizeIndices( element, data )
+{
+  var cells = element.getElementsByClassName( "seq_index" ); // considers that elements returned corresponds to data 1:1
+  
+  //console.log("colorizeIndices: found cells",cells.length);
+  for (var j=0; j<cells.length; j++) { // go over indices
+  
+    var has_mismatch = false;
+    for (var i=1; i<data.length; i++) { // find at least 2 non-equal elements in a row
+      var line1 = data[i-1][2];
+      var line2 = data[i][2];
+      //if (j == 27) console.log( line1[j],i,j );
+      if (line1[j] != line2[j]) { has_mismatch = true; break; }
+    }
+    //console.log("row ",j,"has_mismatch=",has_mismatch );
+    if (has_mismatch) continue;
+    
+    cells[j].classList.add("seq_index_stable");
+    cells[j].title = "position " + (j+1) + " is stable";
+  }
+}
+
 
 // makes indices visible when hover mouse
-function showIndices(element, data)
+function interactiveSeqValues(element, data)
 {
   var cells = element.getElementsByClassName( "seq_val" );
   

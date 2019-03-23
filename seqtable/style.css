@@ -55,6 +55,11 @@
   background-color: #d2d2d2;
 }
 
+.seq_table .seq_index_stable {
+  background-color: #e769ef !important; /* not red - to be differend from .seq_val_A */
+  /* #e769ef = zametno i po glazam ne byet, vibrano 23.03.19 */
+}
+
 /* *********************** indices for dna records ***************************** */
 
 .seq_table tr:hover td {
