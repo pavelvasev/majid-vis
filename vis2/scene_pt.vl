@@ -70,21 +70,27 @@ Scene {
 
     property var positions2: {
       var zz = zScale.value;
-      var arrays = (json.output.lines || []).map( function(v) { return [ v[0],v[1],v[2]*zz, v[3],v[4],v[5]*zz ]; } )
-      var merged = [].concat.apply([], arrays);
-      return merged;
+      var res = [];
+      (json.output.lines || []).forEach( function(v) { 
+        res.push( v[0] );
+        res.push( v[1] );
+        res.push( v[2]*zz );
+        res.push( v[3] );
+        res.push( v[4] );
+        res.push( v[5]*zz );
+      })
+      return res;
     }
     positions: {
       var s = allScale.value;
       return positions2.map( function(e) { return s * e } );
     }
     
-    colors: {
-      //var arrays = (json.output.lines || []).map( function(v) { return [ v[6],v[7],v[8], v[6],v[7],v[8] ]; } )
-      var arrays = (json.output.lines || []).map( function(v) { return [ v[6],v[7],v[8] ]; } )
-      var merged = [].concat.apply([], arrays);
-      console.log("setting colors",merged);
-      return merged;
+    colors: {      
+      var res = [];
+      (json.output.lines || []).forEach( function(v) { res.push( v[6] ); res.push( v[7] ); res.push( v[8] ); } )
+      //console.log("setting colors",merged);
+      return res;
     }
     
     VisibleParam {
@@ -101,9 +107,9 @@ Scene {
 
     property var positions2: {
       var zz = zScale.value;
-      var arrays = (json.output.spheres || []).map( function(v) { return [ v[0],v[1],v[2]*zz ]; } )
-      var merged = [].concat.apply([], arrays);
-      return merged;
+      var res = [];
+      (json.output.spheres || []).forEach( function(v) { res.push( v[0] ); res.push( v[1] ); res.push( v[2]*zz ); } )
+      return res;
     }
     positions: {
       var s = allScale.value;
@@ -112,20 +118,18 @@ Scene {
 
     colors: {
       //var arrays = (json.output.lines || []).map( function(v) { return [ v[6],v[7],v[8], v[6],v[7],v[8] ]; } )
-      var arrays = (json.output.spheres || []).map( function(v) { return [ v[3],v[4],v[5] ]; } )
-      var merged = [].concat.apply([], arrays);
-      //console.log("setting colors",merged);
-      return merged;
+      var res = [];
+      (json.output.spheres || []).forEach( function(v) { res.push(v[3]); res.push(v[4]); res.push(v[5]); } )
+      return res;
     }
     
     property bool hasr: (((json.output.spheres || [])[0] || [])[6] > 0)
     radiuses: {
       if (!hasr) return [];
       //var dr = sScale.value;
-      var arrays = (json.output.spheres || []).map( function(v) { return [ v[6] ]; } )
-      var merged = [].concat.apply([], arrays);
-      console.log("setting spheres radiues",merged);
-      return merged;
+      var res = [];
+      (json.output.spheres || []).forEach( function(v) { res.push( v[6] ); } )
+      return res;
     }
     
     VisibleParam {
