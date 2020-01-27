@@ -1,0 +1,16 @@
+CreLines 1.0 CreLines.qml
+CrePoints 1.0 CrePoints.qml
+DynamicFilter 1.0 DynamicFilter.qml
+ImageDecoder 1.0 ImageDecoder.qml
+Scene2 1.0 Scene2.qml
+TextLoader2 1.0 TextLoader2.qml
+ViaFunctione2 1.0 ViaFunctione2.qml
+
+ShaderConfig 1.0 konv3/ShaderConfig.qml
+ShaderScale 1.0 konv3/ShaderScale.qml
+ShaderClip 1.0 konv3/ShaderClip.qml
+ShaderClipS 1.0 konv3/ShaderClipS.qml
+ShaderBlack 1.0 konv3/ShaderBlack.qml
+FeatureKeepBkg 1.0 konv3/FeatureKeepBkg.qml
+ShaderUser 1.0 konv3/ShaderUser.qml
+ShaderColorS 1.0 konv3/ShaderColorS.qml
