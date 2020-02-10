@@ -37,6 +37,8 @@ Shader {
     value: 1
     text: "x-scale"
     enableSliding: true
+    comboEnabled: false
+    textEnabled: true
     property var enableScopeDuplicated: true
   }
   
@@ -48,6 +50,8 @@ Shader {
     value: 1
     text: "y-scale"
     enableSliding: true
+    comboEnabled: false
+    textEnabled: true    
     property var enableScopeDuplicated: true
   }  
   
@@ -59,6 +63,8 @@ Shader {
     value: 1
     text: "phi-scale"
     enableSliding: true
+    comboEnabled: false
+    textEnabled: true        
     property var enableScopeDuplicated: true
   }  
   

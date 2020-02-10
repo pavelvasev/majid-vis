@@ -30,6 +30,9 @@ GroupBox {
     ["Подкраска сечений Y<br/><br/>","ShaderColorS?y", { os: "y", titl: "Y" }],    
     ["Убрать черный","ShaderBlack", { }],
     ["Накоплять фон","FeatureKeepBkg", { }],
+    ["Автомасштаб","AutoScale", { }],
+    ["Камера: взгляд","CameraLook", { }],
+    ["Камера: поворот","CameraRotate", { }],
     ["Пользовательский","ShaderUser", { titl: "1" }]
   ]
 

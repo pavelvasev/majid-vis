@@ -14,3 +14,6 @@ ShaderBlack 1.0 konv3/ShaderBlack.qml
 FeatureKeepBkg 1.0 konv3/FeatureKeepBkg.qml
 ShaderUser 1.0 konv3/ShaderUser.qml
 ShaderColorS 1.0 konv3/ShaderColorS.qml
+AutoScale 1.0 konv3/AutoScale.qml
+CameraLook 1.0 konv3/CameraLook.qml
+CameraRotate 1.0 konv3/CameraRotate.qml

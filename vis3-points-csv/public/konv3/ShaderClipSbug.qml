@@ -1,4 +1,3 @@
-// copied from /home/contact/prg/dvidium-2020/23-objects-and-morfizms-b9/t-viewlang-mike2/6-resources/konv3/ShaderClipS.qml on 2020-01-04 16:53:43 +0500
 Shader {
   id: shader1
   
