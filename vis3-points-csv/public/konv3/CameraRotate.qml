@@ -41,6 +41,7 @@ Shader {
         min: -1
         max: 1
         step: 0.1
+        value: 0.1
         id: pauto
         text: "Авто-поворот"
         guid: "cam_auto_inc"
